@@ -1,5 +1,5 @@
-from mtorba.exporter import NodeExporter, Input
+from mtorba.exporter import Input
+from mtorba.exporters.geometryFilter import geometryFilterExporter
 
-exporter = NodeExporter("mgear_curveCns", [
-	"inputGeometry",
-	"inputs"], ["outputGeometry"])
+exporter = geometryFilterExporter("mgear_curveCns", [
+	Input("inputs", "inputs", "Array")], ["outputGeometry"], weights_attribute_name="weights_name")
