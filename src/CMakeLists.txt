@@ -4,14 +4,32 @@ project( mgear_solvers )
 file( GLOB_RECURSE MGEAR_SOLVERS_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/*.h" )
 file( GLOB_RECURSE MGEAR_SOLVERS_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" )
 
-include_directories( ${RUMBA_SDK}/include )
-link_directories( ${RUMBA_SDK}/lib )
- 
+find_package(rumba REQUIRED)
+include_directories(${rumba_INCLUDE_DIRS})
+link_directories(${rumba_LIBRARY_DIRS})
+
 add_library( mgear_solvers SHARED ${MGEAR_SOLVERS_HEADERS} ${MGEAR_SOLVERS_SOURCES} ) 
-target_link_libraries( mgear_solvers PUBLIC kernel Iex Imath )
+target_link_libraries( mgear_solvers PUBLIC ${rumba_LIBRARIES} )
 target_include_directories( mgear_solvers PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}" )
 
 # On visual, use the release dll runtime (MD) in Debug
 if (MSVC)
     set(CMAKE_CXX_FLAGS_DEBUG "/MD /Zi /Ob0 /Od /RTC1")
+endif()
+
+# Optional output directory
+if(DEFINED rumba_RUNTIME_OUTPUT_DIRECTORY)
+	set_target_properties(mgear_solvers PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${rumba_RUNTIME_OUTPUT_DIRECTORY}")
+endif()
+if(DEFINED rumba_RUNTIME_OUTPUT_DIRECTORY_DEBUG)
+	set_target_properties(mgear_solvers PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG "${rumba_RUNTIME_OUTPUT_DIRECTORY_DEBUG}")
+endif()
+if(DEFINED rumba_RUNTIME_OUTPUT_DIRECTORY_RELEASE)
+	set_target_properties(mgear_solvers PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE "${rumba_RUNTIME_OUTPUT_DIRECTORY_RELEASE}")
+endif()
+if(DEFINED rumba_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO)
+	set_target_properties(mgear_solvers PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO "${rumba_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO}")
+endif()
+if(DEFINED rumba_RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL)
+	set_target_properties(mgear_solvers PROPERTIES RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL "${rumba_RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL}")
 endif()

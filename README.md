@@ -2,6 +2,10 @@
 
 Port of the mgear_solvers project to Rumba
 
+The official MGear web site : https://www.mgear-framework.com/
+
+This plug-in is included in the Rumba distribution starting from version 1.0.rc-3.
+
 ## Build
 
 To build it on Windows, you need a Visual Studio 2015 and a Rumba installation which contains a SDK.
@@ -10,8 +14,8 @@ To build it on Windows, you need a Visual Studio 2015 and a Rumba installation w
 > cd mgear_solvers_rumba
 > mkdir build
 > cd build
-> cmake ../src -G "Visual Studio 14 2015 Win64" "-DRUMBA_SDK=/c/Program Files/Rumba/sdk/"
-> cmake --build .
+> cmake ../src -G "Visual Studio 14 2015 Win64" "-Drumba_DIR=/c/Program Files/Rumba/sdk/"
+> cmake --build . --config release
 ```
 
 ## Installation
