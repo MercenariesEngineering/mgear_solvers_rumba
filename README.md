@@ -20,20 +20,6 @@ To build it on Windows, you need a Visual Studio 2015 and a Rumba installation w
 
 ## Installation
 
-### Declare the plug-ins to mtorba
-
-First, in order to export your rig from Maya, you have to declare your plug-ins to MTORBA.
-
-To do that, add to the MTORBA_USER_EXPORTERS environment variable the path to the mgear_solvers_rumba/mtorba directory:
-
-```MTORBA_USER_EXPORTERS=C:/mgear_solvers_rumba/mtorba/```
-
-If you have multiple mtorba directories (maybe for weightDriver..) use your OS separator character, ';' for Windows, ':' for Linux.
-
-```MTORBA_USER_EXPORTERS=C:/mgear_solvers_rumba/mtorba/;C:/weightDriver_rumba/mtorba/```
-
-Now you should be able to export your rig.
-
 ### Register the plug-ins in Rumba
 
 Now, you want to register your plug-ins to Rumba.
