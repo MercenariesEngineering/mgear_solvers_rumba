@@ -153,7 +153,7 @@ static Value eval_outputGeometry(EvalContext& ctx)
 		dst[i] = V3f(float(pt.x), float(pt.y), float(pt.z));
 	}
 
-	return result;
+	return std::move(result);
 }
 
 /////////////////////////////////////////////////

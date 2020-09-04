@@ -145,7 +145,7 @@ static Value eval_output(EvalContext& ctx)
       samplelen[0] = 0;
       double overalllen = 0;
       MVectorArray results(2);
-      for(long i=1;i<in_subdiv;i++,sampleu+=samplestep){
+      for(int i=1;i<in_subdiv;i++,sampleu+=samplestep){
          results = bezier4point(pos[index1],tan[index1],pos[index2],tan[index2],sampleu);
          presample[i] = results[0];
          presampletan[i] = results[1];
@@ -156,7 +156,7 @@ static Value eval_output(EvalContext& ctx)
       }
       // now as we have the
       sampleu = 0;
-      for(long i=0;i<in_subdiv-1;i++,sampleu+=samplestep){
+      for(int i=0;i<in_subdiv-1;i++,sampleu+=samplestep){
          samplelen[i+1] = samplelen[i+1] / overalllen;
          if(v>=samplelen[i] && v <=  samplelen[i+1]){
             v = (v - samplelen[i]) / (samplelen[i+1] - samplelen[i]);
@@ -179,7 +179,7 @@ static Value eval_output(EvalContext& ctx)
       samplelen[0] = 0;
       double overalllen = 0;
       MVectorArray results;
-      for(long i=1;i<in_subdiv;i++,sampleu+=samplestep){
+      for(int i=1;i<in_subdiv;i++,sampleu+=samplestep){
          index1 = std::min(count-2, int(floor(sampleu / step)));
          index2 = index1+1;
          v = (sampleu - step * double(index1)) / step;
@@ -193,7 +193,7 @@ static Value eval_output(EvalContext& ctx)
       }
       // now as we have the
       sampleu = 0;
-      for(long i=0;i<in_subdiv-1;i++,sampleu+=samplestep){
+      for(int i=0;i<in_subdiv-1;i++,sampleu+=samplestep){
          samplelen[i+1] = samplelen[i+1] / overalllen;
          if(in_u>=samplelen[i] && in_u <= samplelen[i+1]){
             in_u = (in_u - samplelen[i]) / (samplelen[i+1] - samplelen[i]);
