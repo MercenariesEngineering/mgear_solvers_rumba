@@ -12,8 +12,8 @@ void register_rollSplineKine( Registry &r );
 void register_slideCurve2( Registry &r );
 void register_squashStretch2( Registry &r );
 
-RUMBA_DECLARE_PLUGINS
-RUMBA_REGISTER_PLUGINS
+MAQUINA_DECLARE_PLUGINS
+MAQUINA_REGISTER_PLUGINS
 {
 	register_curveCns(r);
   register_ikfk2Bone(r);
