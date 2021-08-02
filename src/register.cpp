@@ -1,7 +1,7 @@
 
 #include "Maquina/Maquina.h"
 
-using namespace rumba;
+using namespace maquina;
 
 void register_curveCns( Registry &r );
 void register_ikfk2Bone( Registry &r );

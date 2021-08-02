@@ -35,7 +35,7 @@ Ported to Rumba by Mercenaries Engineering SARL
 /////////////////////////////////////////////////
 #include "mgear_solvers.h"
 
-using namespace rumba;
+using namespace maquina;
 using namespace Imath;
 
 /////////////////////////////////////////////////
@@ -78,7 +78,7 @@ static Value eval_outputGeometry(EvalContext& ctx)
 	int slvPointCount = int(slv.read_points().size());
 	int mstPointCount = crv.numCVs();
 
-	const MMatrix mat = slv.read_attribute("world_matrix", rumba::Shape::Topology::constant).as_M44f();
+	const MMatrix mat = slv.read_attribute("world_matrix", maquina::Shape::Topology::constant).as_M44f();
 	const MMatrix mat_inv = mat.inverse();
 
 	// Stretch --------------------------------------------------------
