@@ -89,8 +89,14 @@ static Value eval_output(EvalContext& ctx)
 	MVector scl = MVector(sx, sy, sz);
 	scl = linearInterpolate(gscale, scl, in_blend);
 
+	double clamp_value = 0.0001;
+
+	double scl_x = std::max(scl.x, clamp_value);
+	double scl_y = std::max(scl.y, clamp_value);
+	double scl_z = std::max(scl.z, clamp_value);
+
 	// Output
-	return Imath::V3f(scl.to_ilmbase());
+	return Imath::V3f(float(scl_x), float(scl_y), float(scl_z));
 }
 
 /////////////////////////////////////////////////
