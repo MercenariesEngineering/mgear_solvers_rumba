@@ -33,7 +33,7 @@ Ported to Rumba by Mercenaries Engineering SARL
 
 #include "mgear_solvers.h"
 
-using namespace rumba;
+using namespace maquina;
 using namespace Imath;
 
 // ---------------------------------------------------

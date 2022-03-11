@@ -33,7 +33,7 @@ Date:       2016 / 10 / 10
 /////////////////////////////////////////////////
 #include "mgear_solvers.h"
 
-using namespace rumba;
+using namespace maquina;
 using namespace Imath;
 
 enum
