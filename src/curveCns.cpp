@@ -56,13 +56,13 @@ static Value eval_outputGeometry(EvalContext& ctx)
 	Points result = inputGeometry.duplicate();
 	auto points = result.write_points();
 
-	const M44f mat_inverse = inputGeometry.read_attribute("world_matrix", Shape::Topology::constant).as_M44f().inverse();
+	const M44d mat_inverse = inputGeometry.read_attribute("world_matrix", Shape::Topology::constant).as_M44d().inverse();
 
 	// Process
 	const int n = std::min(int(points.size()), int(adh.size()));
 	for(int i =0; i < n; ++i)
 	{
-		const M44f m(adh.as_M44f(i) * mat_inverse);
+		const M44d m(adh.as_M44d(i) * mat_inverse);
 		points[i] = m.translation();
 	}
 

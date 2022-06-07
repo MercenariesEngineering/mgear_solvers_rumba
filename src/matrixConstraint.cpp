@@ -65,26 +65,26 @@ static Value eval_intermediate(EvalContext& ctx)
 	// -----------------------------------------
 	// input attributes
 	// -----------------------------------------
-	MMatrix driver_matrix = ctx.as_M44f(aDriverMatrix);
+	MMatrix driver_matrix = ctx.as_M44d(aDriverMatrix);
 
 	// -- driver rotation offset
-	const Imath::V3f in_driver_rotation_offset = ctx.as_V3f(aDriverRotationOffset);
+	const Imath::V3d in_driver_rotation_offset = ctx.as_V3d(aDriverRotationOffset);
 	double in_driver_rotation_offset_x = in_driver_rotation_offset.x;
 	double in_driver_rotation_offset_y = in_driver_rotation_offset.y;
 	double in_driver_rotation_offset_z = in_driver_rotation_offset.z;
 
-	MMatrix driven_inverse_matrix = ctx.as_M44f(aDrivenParentInverseMatrix);
-	MMatrix rest_matrix = ctx.as_M44f(aDrivenRestMatrix);
+	MMatrix driven_inverse_matrix = ctx.as_M44d(aDrivenParentInverseMatrix);
+	MMatrix rest_matrix = ctx.as_M44d(aDrivenRestMatrix);
 
 	// -- rotation multiplier
-	const Imath::V3f in_rotation_multiplier = ctx.as_V3f(aRotationMultiplier);
+	const Imath::V3d in_rotation_multiplier = ctx.as_V3d(aRotationMultiplier);
 	double in_rotation_multiplier_x = in_rotation_multiplier.x;
 	double in_rotation_multiplier_y = in_rotation_multiplier.y;
 	double in_rotation_multiplier_z = in_rotation_multiplier.z;
 
 
 	// -- scale multiplier
-	const Imath::V3f in_scale_multiplier = ctx.as_V3f(aScaleMultiplier);
+	const Imath::V3d in_scale_multiplier = ctx.as_V3d(aScaleMultiplier);
 	double in_scale_multiplier_x = in_scale_multiplier.x;
 	double in_scale_multiplier_y = in_scale_multiplier.y;
 	double in_scale_multiplier_z = in_scale_multiplier.z;
@@ -140,18 +140,18 @@ static Value eval_intermediate(EvalContext& ctx)
 	// output
 	// -----------------------------------------
 	Array results;
-	results.push_back(Imath::M44f(result.asMatrix().to_ilmbase()));	// 0
-	results.push_back(Imath::M44f(driver_matrix_off.asMatrix().to_ilmbase())); // 1
-	results.push_back(Imath::V3f(result.getTranslation(MSpace::kWorld).to_ilmbase())); // 2
+	results.push_back(result.asMatrix().to_ilmbase());	// 0
+	results.push_back(driver_matrix_off.asMatrix().to_ilmbase()); // 1
+	results.push_back(result.getTranslation(MSpace::kWorld).to_ilmbase()); // 2
 
 	MEulerRotation rotation_result = result.eulerRotation();
-	results.push_back(Imath::V3f(rotation_result.to_ilmbase()));	// 3
+	results.push_back(rotation_result.to_ilmbase());	// 3
 
 	result.getScale(scale_result, MSpace::kWorld);
-	results.push_back(Imath::V3f(Imath::V3d(scale_result[0], scale_result[1], scale_result[2])));	// 4
+	results.push_back(Imath::V3d(scale_result[0], scale_result[1], scale_result[2]));	// 4
 
 	result.getShear(shear_result, MSpace::kWorld);
-	results.push_back(Imath::V3f(Imath::V3d(shear_result[0], shear_result[1], shear_result[2])));	// 5
+	results.push_back(Imath::V3d(shear_result[0], shear_result[1], shear_result[2]));	// 5
 
 	return results;
 }
@@ -206,12 +206,12 @@ void register_matrixConstraint( Registry &r )
 			// ---------------------------------------------------
 			// input plugs
 			// ---------------------------------------------------
-			{ "driverMatrix", Imath::identity44f },
-			{ "driverRotationOffset", Imath::V3f(0.f) },
-			{ "drivenParentInverseMatrix", Imath::identity44f },
-			{ "drivenRestMatrix", Imath::identity44f },
-			{ "rotationMultiplier", Imath::V3f(1.f) },
-			{ "scaleMultiplier", Imath::V3f(1.f) },
+			{ "driverMatrix", Imath::identity44d },
+			{ "driverRotationOffset", Imath::V3d(0.f) },
+			{ "drivenParentInverseMatrix", Imath::identity44d },
+			{ "drivenRestMatrix", Imath::identity44d },
+			{ "rotationMultiplier", Imath::V3d(1.f) },
+			{ "scaleMultiplier", Imath::V3d(1.f) },
 
 			{ "intermediate", Array::default_value, 0, "",
 				eval_intermediate,
@@ -228,37 +228,37 @@ void register_matrixConstraint( Registry &r )
 			// ---------------------------------------------------
 			// output plugs
 			// ---------------------------------------------------
-			{ "outputMatrix", Imath::identity44f, 0, "",
+			{ "outputMatrix", Imath::identity44d, 0, "",
 				eval_outputMatrix,
 				{
 					{ "intermediate" }
 				}
 			},
-			{ "outputDriverOffsetMatrix", Imath::identity44f, 0, "",
+			{ "outputDriverOffsetMatrix", Imath::identity44d, 0, "",
 				eval_outputDriverOffsetMatrix,
 				{
 					{ "intermediate" }
 				}
 			},
-			{ "translate", Imath::V3f(0.f), 0, "",
+			{ "translate", Imath::V3d(0.f), 0, "",
 				eval_translate,
 				{
 					{ "intermediate" }
 				}
 			},
-			{ "rotate", Imath::V3f(0.f), 0, "",
+			{ "rotate", Imath::V3d(0.f), 0, "",
 				eval_rotate,
 				{
 					{ "intermediate" }
 				}
 			},
-			{ "scale", Imath::V3f(1.f), 0, "",
+			{ "scale", Imath::V3d(1.f), 0, "",
 				eval_scale,
 				{
 					{ "intermediate" }
 				}
 			},
-			{ "shear", Imath::V3f(0.f), 0, "",
+			{ "shear", Imath::V3d(0.f), 0, "",
 				eval_shear,
 				{
 					{ "intermediate" }

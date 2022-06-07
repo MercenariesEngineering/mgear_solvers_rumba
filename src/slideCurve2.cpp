@@ -61,15 +61,15 @@ static Value eval_outputGeometry(EvalContext& ctx)
 	// Input NurbsCurve
 	// Curve
 	const MFnNurbsCurve crv(ctx.value( master_crv ));
-	MMatrix m = ctx.as_M44f(master_mat);
+	MMatrix m = ctx.as_M44d(master_mat);
 
 	// Input Sliders
-	double in_sl = (double)ctx.as_float(slave_length);
-	double in_ml = (double)ctx.as_float(master_length);
-	double in_position = (double)ctx.as_float(position);
-	double in_maxstretch = (double)ctx.as_float(maxstretch);
-	double in_maxsquash = (double)ctx.as_float(maxsquash);
-	double in_softness = (double)ctx.as_float(softness);
+	double in_sl = (double)ctx.as_double(slave_length);
+	double in_ml = (double)ctx.as_double(master_length);
+	double in_position = (double)ctx.as_double(position);
+	double in_maxstretch = (double)ctx.as_double(maxstretch);
+	double in_maxsquash = (double)ctx.as_double(maxsquash);
+	double in_softness = (double)ctx.as_double(softness);
 
 	// Init -----------------------------------------------------------
 	double mstCrvLength = crv.length();
@@ -78,7 +78,7 @@ static Value eval_outputGeometry(EvalContext& ctx)
 	int slvPointCount = int(slv.read_points().size());
 	int mstPointCount = crv.numCVs();
 
-	const MMatrix mat = slv.read_attribute("world_matrix", maquina::Shape::Topology::constant).as_M44f();
+	const MMatrix mat = slv.read_attribute("world_matrix", maquina::Shape::Topology::constant).as_M44d();
 	const MMatrix mat_inv = mat.inverse();
 
 	// Stretch --------------------------------------------------------
@@ -150,7 +150,7 @@ static Value eval_outputGeometry(EvalContext& ctx)
 
 		pt *= mat_inv;
 		pt *= m;
-		dst[i] = V3f(float(pt.x), float(pt.y), float(pt.z));
+		dst[i] = V3d(float(pt.x), float(pt.y), float(pt.z));
 	}
 
 	return std::move(result);
@@ -169,7 +169,7 @@ void register_slideCurve2( Registry &r )
 		{
 			{ "inputGeometry", Points::default_value },
 			{ "master_crv", NurbsCurve::default_value },
-			{ "master_mat", identity44f },
+			{ "master_mat", identity44d },
 			{ "slave_length", 1.f },
 			{ "master_length", 1.f },
 			{ "position", 0.f, PlugDescriptor::serial, "{\"min\":0.0,\"max\":1.0}" },

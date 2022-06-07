@@ -51,19 +51,19 @@ enum
 
 static Value eval_output(EvalContext& ctx)
 {
-	MMatrix mA = ctx.as_M44f( Dep_matrixA );
-	MMatrix mB = ctx.as_M44f( Dep_matrixB );
+	MMatrix mA = ctx.as_M44d( Dep_matrixA );
+	MMatrix mB = ctx.as_M44d( Dep_matrixB );
 
 	MTransformationMatrix mAm= MTransformationMatrix(mA);
 	MTransformationMatrix mBm = MTransformationMatrix(mB);
 
 	// SLIDERS
-	double in_blend = (double)ctx.as_float( Dep_blend );
+	double in_blend = (double)ctx.as_double( Dep_blend );
 
 	MTransformationMatrix mCm = interpolateTransform(mAm, mBm, in_blend);
 
 	MMatrix mC = mCm.asMatrix();
-	return M44f(mC.to_ilmbase());
+	return mC.to_ilmbase();
 }
 
 /////////////////////////////////////////////////
@@ -78,9 +78,9 @@ void register_intMatrix( Registry &r )
 		"Node",
 		{
 			{ "blend", 0.f, PlugDescriptor::serial, "{\"min\":0.0,\"max\":1.0}" },
-			{ "matrixA", Imath::identity44f },
-			{ "matrixB", Imath::identity44f },
-			{ "output", Imath::identity44f, 0, "",
+			{ "matrixA", Imath::identity44d },
+			{ "matrixB", Imath::identity44d },
+			{ "output", Imath::identity44d, 0, "",
 				eval_output,
 				{
 					{ "matrixA" },

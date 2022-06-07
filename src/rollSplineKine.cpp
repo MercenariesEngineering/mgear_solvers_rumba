@@ -61,34 +61,34 @@ static Value eval_output(EvalContext& ctx)
 	Array adh = ctx.value( ctlParent );
 	int count = int(adh.size());
 	if (count < 1)
-		return identity44f;
+		return identity44d;
 	std::vector<MMatrix> inputsP(count);
 	for (int i = 0 ; i < count ; i++){
-		inputsP[i] = adh.as_M44f(i);
+		inputsP[i] = adh.as_M44d(i);
 	}
 
 	// Inputs
 	adh = ctx.value( inputs );
 	if (count != int(adh.size()))
-		return identity44f;
+		return identity44d;
 	std::vector<MMatrix> inputs(count);
 	for (int i = 0 ; i < count ; i++){
-		inputs[i] = adh.as_M44f(i);
+		inputs[i] = adh.as_M44d(i);
 	}
 
 	adh = ctx.value( inputsRoll );
 	if (count != int(adh.size()))
-		return identity44f;
+		return identity44d;
 	MDoubleArray roll(int(adh.size()));
 	for (int i = 0 ; i < count ; i++){
-		roll[i] = degrees2radians((double)adh.as_float(i));
+		roll[i] = degrees2radians((double)adh.as_double(i));
 	}
 
 	// Output Parent
-	MMatrix outputParent_ = ctx.as_M44f( outputParent );
+	MMatrix outputParent_ = ctx.as_M44d( outputParent );
 	
     // Get inputs sliders -------------------------------
-    double in_u = (double)ctx.as_float( u );
+    double in_u = (double)ctx.as_double( u );
     bool in_resample = ctx.as_bool( resample );
     int in_subdiv = ctx.as_int( subdiv );
     bool in_absolute = ctx.as_bool( absolute );
@@ -237,7 +237,7 @@ static Value eval_output(EvalContext& ctx)
 	threeDoubles[0] = scl1.z;
 	result.setScale(threeDoubles, MSpace::kWorld);
 
-	return M44f(( result.asMatrix() * outputParent_.inverse() ).to_ilmbase());
+	return ( result.asMatrix() * outputParent_.inverse() ).to_ilmbase();
 }
 
 /////////////////////////////////////////////////
@@ -254,12 +254,12 @@ void register_rollSplineKine( Registry &r )
 			{ "ctlParent", Array::default_value },
 			{ "inputs", Array::default_value },
 			{ "inputsRoll", Array::default_value },
-			{ "outputParent", identity44f },
+			{ "outputParent", identity44d },
 			{ "u", 0.f, PlugDescriptor::serial, "{\"min\":0.0,\"max\":1.0}" },
 			{ "resample", false },
 			{ "subdiv", 10, PlugDescriptor::serial, "{\"min\":3}" },
 			{ "absolute", false },
-			{ "output", identity44f, 0, "",
+			{ "output", identity44d, 0, "",
 				eval_output,
 				{
 					{ "ctlParent" },
