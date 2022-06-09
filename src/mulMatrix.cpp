@@ -44,8 +44,8 @@ using namespace Imath;
 
 static Value eval_output(EvalContext& ctx)
 {
-	const auto mA = ctx.as_M44f(0);
-	const auto mB = ctx.as_M44f(1);
+	const auto mA = ctx.as_M44d(0);
+	const auto mB = ctx.as_M44d(1);
 
 	return mA * mB;
 }
@@ -61,9 +61,9 @@ void register_mulMatrix( Registry &r )
 		"mgear_mulMatrix",
 		"Node",
 		{
-			{ "matrixA", Imath::identity44f },
-			{ "matrixB", Imath::identity44f },
-			{ "output", Imath::identity44f, 0, "",
+			{ "matrixA", Imath::identity44d },
+			{ "matrixB", Imath::identity44d },
+			{ "output", Imath::identity44d, 0, "",
 				eval_output,
 				{
 					{ "matrixA" },

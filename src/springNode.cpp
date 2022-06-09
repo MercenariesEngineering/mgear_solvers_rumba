@@ -53,16 +53,16 @@ static Value eval_state(EvalContext& ctx)
 	MStatus status;
 
 	// getting inputs attributes
-	float damping = ctx.as_float(state_aDamping);
-	float stiffness = ctx.as_float(state_aStiffness);
+	double damping = ctx.as_double(state_aDamping);
+	double stiffness = ctx.as_double(state_aStiffness);
 
 	//MVector goal = ctx(aGoal, &status).asVector();
-	MVector goal = ctx.as_V3f(state_aGoal);
+	MVector goal = ctx.as_V3d(state_aGoal);
 	// float aGoalX = goal.x;
 	// float aGoalY = goal.y;
 	// float aGoalZ = goal.z;
 
-	float currentTime = ctx.evaluation_time();
+	double currentTime = ctx.evaluation_time();
 	//MMatrix parentInverse = ctx(aParentInverse, &status).asMatrix();
 
 	Plug interactive_state = ctx.plug(state_aPreviousState).node().plug("interactive_state");
@@ -74,7 +74,7 @@ static Value eval_state(EvalContext& ctx)
 		previous_state = ctx.value(state_aPreviousState);
 
 	MVector _previousPosition, _currentPosition;
-	float _previousTime;
+	double _previousTime;
 	if(!previous_state.size())
 	{
 		// Initialize the point states
@@ -86,9 +86,9 @@ static Value eval_state(EvalContext& ctx)
 	}
 	else
 	{
-		_previousPosition = previous_state.as_V3f(0);
-		_currentPosition = previous_state.as_V3f(1);
-		_previousTime = previous_state.as_float(2);
+		_previousPosition = previous_state.as_V3d(0);
+		_currentPosition = previous_state.as_V3d(1);
+		_previousTime = previous_state.as_double(2);
 	}
 
 	/*// Check if the timestep is just 1 frame since we want a stable simulation
@@ -110,8 +110,8 @@ static Value eval_state(EvalContext& ctx)
 
 	// store the states for the next calculation
 	Array new_state;
-	new_state.push_back(Imath::V3f(_currentPosition.to_ilmbase()));
-	new_state.push_back(Imath::V3f(newPosition.to_ilmbase()));
+	new_state.push_back(_currentPosition.to_ilmbase());
+	new_state.push_back(newPosition.to_ilmbase());
 	new_state.push_back(currentTime);
 
 	if(ctx.is_interactive())
@@ -125,14 +125,14 @@ static Value eval_state(EvalContext& ctx)
 static Value eval_output(EvalContext& ctx)
 {
 	const Array state(ctx.value(output_aState));
-	MVector goal = ctx.as_V3f(output_aGoal);
-	float springIntensity = ctx.as_float(output_aSpringIntensity);
+	MVector goal = ctx.as_V3d(output_aGoal);
+	double springIntensity = ctx.as_double(output_aSpringIntensity);
 	//multipply the position by the spring intensity
 	//calculamos depues de los states, para no afectarlos
-	MVector newPosition = state.as_V3f(1);
+	MVector newPosition = state.as_V3d(1);
 	newPosition = goal + ((newPosition - goal) * springIntensity);
 
-	return Imath::V3f(newPosition.to_ilmbase());
+	return newPosition.to_ilmbase();
 
 }
 
@@ -150,7 +150,7 @@ void register_springNode( Registry &r )
 			// ---------------------------------------------------
 			// input plugs
 			// ---------------------------------------------------
-			{ "goal", Imath::V3f(0.f) },
+			{ "goal", Imath::V3d(0.f) },
 			{ "stiffness", 1.f },
 			{ "damping", 1.f },
 			{ "intensity", 1.f },
@@ -171,7 +171,7 @@ void register_springNode( Registry &r )
 					{ "damping" }
 				}
 			},
-			{ "output", Imath::V3f(0.f), 0, "",
+			{ "output", Imath::V3d(0.f), 0, "",
 				eval_output,
 				{
 					{ "state", },

@@ -378,15 +378,15 @@ MTransformationMatrix eval_output(EvalContext& ctx, const MString& outName)
 	MStatus returnStatus;
 
 	// INPUT MATRICES
-	MMatrix in_root = ctx.as_M44f(Dep_root);
-	MMatrix in_ikref = ctx.as_M44f(Dep_ikref);
-	MMatrix in_upv = ctx.as_M44f(Dep_upv);
-	MMatrix in_fk0 = ctx.as_M44f(Dep_fk0);
-	MMatrix in_fk1 = ctx.as_M44f(Dep_fk1);
-	MMatrix in_fk2 = ctx.as_M44f(Dep_fk2);
+	MMatrix in_root = ctx.as_M44d(Dep_root);
+	MMatrix in_ikref = ctx.as_M44d(Dep_ikref);
+	MMatrix in_upv = ctx.as_M44d(Dep_upv);
+	MMatrix in_fk0 = ctx.as_M44d(Dep_fk0);
+	MMatrix in_fk1 = ctx.as_M44d(Dep_fk1);
+	MMatrix in_fk2 = ctx.as_M44d(Dep_fk2);
 
 	// SLIDERS
-	double in_blend = (double)ctx.as_float(Dep_blend);
+	double in_blend = (double)ctx.as_double(Dep_blend);
 
 	// setup the base IK parameters
 	s_GetIKTransform ikparams;
@@ -395,16 +395,16 @@ MTransformationMatrix eval_output(EvalContext& ctx, const MString& outName)
 	ikparams.eff = in_ikref;
 	ikparams.upv = in_upv;
 
-	ikparams.lengthA = (double)ctx.as_float(Dep_lengthA);
-	ikparams.lengthB = (double)ctx.as_float(Dep_lengthB);
+	ikparams.lengthA = (double)ctx.as_double(Dep_lengthA);
+	ikparams.lengthB = (double)ctx.as_double(Dep_lengthB);
 	ikparams.negate = ctx.as_bool(Dep_negate);
-	ikparams.roll = degrees2radians((double)ctx.as_float(Dep_roll));
-	ikparams.scaleA = (double)ctx.as_float(Dep_scaleA);
-	ikparams.scaleB = (double)ctx.as_float(Dep_scaleB);
-	ikparams.maxstretch = (double)ctx.as_float(Dep_maxstretch);
-	ikparams.softness = (double)ctx.as_float(Dep_softness);
-	ikparams.slide = (double)ctx.as_float(Dep_slide);
-	ikparams.reverse = (double)ctx.as_float(Dep_reverse);
+	ikparams.roll = degrees2radians((double)ctx.as_double(Dep_roll));
+	ikparams.scaleA = (double)ctx.as_double(Dep_scaleA);
+	ikparams.scaleB = (double)ctx.as_double(Dep_scaleB);
+	ikparams.maxstretch = (double)ctx.as_double(Dep_maxstretch);
+	ikparams.softness = (double)ctx.as_double(Dep_softness);
+	ikparams.slide = (double)ctx.as_double(Dep_slide);
+	ikparams.reverse = (double)ctx.as_double(Dep_reverse);
 
 	// setup the base FK parameters
 	s_GetFKTransform fkparams;
@@ -467,30 +467,30 @@ MTransformationMatrix eval_output(EvalContext& ctx, const MString& outName)
 
 static Value eval_outA(EvalContext& ctx)
 {
-	MMatrix in_aParent = ctx.as_M44f(Dep_inAparent);
+	MMatrix in_aParent = ctx.as_M44d(Dep_inAparent);
 	const MTransformationMatrix result = eval_output(ctx, "outA");
-	return Imath::M44f(( result.asMatrix() * in_aParent.inverse() ).to_ilmbase());
+	return ( result.asMatrix() * in_aParent.inverse() ).to_ilmbase();
 }
 
 static Value eval_outB(EvalContext& ctx)
 {
-	MMatrix in_bParent = ctx.as_M44f(Dep_inBparent);
+	MMatrix in_bParent = ctx.as_M44d(Dep_inBparent);
 	const MTransformationMatrix result = eval_output(ctx, "outB");
-	return Imath::M44f(( result.asMatrix() *  in_bParent.inverse() ).to_ilmbase());
+	return ( result.asMatrix() *  in_bParent.inverse() ).to_ilmbase();
 }
 
 static Value eval_outCenter(EvalContext& ctx)
 {
-	MMatrix in_centerParent = ctx.as_M44f(Dep_inCenterparent);
+	MMatrix in_centerParent = ctx.as_M44d(Dep_inCenterparent);
 	const MTransformationMatrix result = eval_output(ctx, "outCenter");
-	return Imath::M44f(( result.asMatrix() * in_centerParent.inverse() ).to_ilmbase());
+	return ( result.asMatrix() * in_centerParent.inverse() ).to_ilmbase();
 }
 
 static Value eval_outEff(EvalContext& ctx)
 {
-	MMatrix in_effParent = ctx.as_M44f(Dep_inEffparent);
+	MMatrix in_effParent = ctx.as_M44d(Dep_inEffparent);
 	const MTransformationMatrix result = eval_output(ctx, "outEff");
-	return Imath::M44f(( result.asMatrix() * in_effParent.inverse() ).to_ilmbase());
+	return ( result.asMatrix() * in_effParent.inverse() ).to_ilmbase();
 }
 
 /////////////////////////////////////////////////
@@ -515,17 +515,17 @@ void register_ikfk2Bone( Registry &r )
 		{ "slide", 0.5f },
 		{ "softness", 0.f },
 		{ "reverse", 0.f },
-		{ "root", Imath::identity44f },
-		{ "ikref", Imath::identity44f },
-		{ "upv", Imath::identity44f },
-		{ "fk0", Imath::identity44f },
-		{ "fk1", Imath::identity44f },
-		{ "fk2", Imath::identity44f },
-		{ "inAparent", Imath::identity44f },
-		{ "inBparent", Imath::identity44f },
-		{ "inCenterparent", Imath::identity44f },
-		{ "inEffparent", Imath::identity44f },
-		{ "outA", Imath::identity44f, 0, "",
+		{ "root", Imath::identity44d },
+		{ "ikref", Imath::identity44d },
+		{ "upv", Imath::identity44d },
+		{ "fk0", Imath::identity44d },
+		{ "fk1", Imath::identity44d },
+		{ "fk2", Imath::identity44d },
+		{ "inAparent", Imath::identity44d },
+		{ "inBparent", Imath::identity44d },
+		{ "inCenterparent", Imath::identity44d },
+		{ "inEffparent", Imath::identity44d },
+		{ "outA", Imath::identity44d, 0, "",
 			eval_outA,
 			{
 				{ "blend" },
@@ -551,7 +551,7 @@ void register_ikfk2Bone( Registry &r )
 				{ "inEffparent" },
 			}
 		},
-		{ "outB", Imath::identity44f, 0, "",
+		{ "outB", Imath::identity44d, 0, "",
 			eval_outB,
 			{
 				{ "blend" },
@@ -577,7 +577,7 @@ void register_ikfk2Bone( Registry &r )
 				{ "inEffparent" },
 			}
 			},
-		{ "outCenter", Imath::identity44f, 0, "",
+		{ "outCenter", Imath::identity44d, 0, "",
 			eval_outCenter,
 			{
 				{ "blend" },
@@ -603,7 +603,7 @@ void register_ikfk2Bone( Registry &r )
 				{ "inEffparent" },
 			}
 		},
-		{ "outEff", Imath::identity44f, 0, "",
+		{ "outEff", Imath::identity44d, 0, "",
 			eval_outEff,
 			{
 				{ "blend" },

@@ -58,20 +58,20 @@ enum
 static Value eval_output(EvalContext& ctx)
 {
 	// Inputs
-	MVector gscale = ctx.as_V3f( global_scale );
+	MVector gscale = ctx.as_V3d( global_scale );
 	double sx = gscale.x;
 	double sy = gscale.y;
 	double sz = gscale.z;
 
 	// Sliders
-	double in_blend = (double)ctx.as_float( blend );
-	double in_driver = (double)ctx.as_float( driver );
-	double in_dmin = (double)ctx.as_float( driver_min );
-	double in_dctr = (double)ctx.as_float( driver_ctr );
-	double in_dmax = (double)ctx.as_float( driver_max );
+	double in_blend = (double)ctx.as_double( blend );
+	double in_driver = (double)ctx.as_double( driver );
+	double in_dmin = (double)ctx.as_double( driver_min );
+	double in_dctr = (double)ctx.as_double( driver_ctr );
+	double in_dmax = (double)ctx.as_double( driver_max );
 	int in_axis = ctx.as_int( axis );
-	double in_sq = (double)ctx.as_float( squash );
-	double in_st = (double)ctx.as_float( stretch );
+	double in_sq = (double)ctx.as_double( squash );
+	double in_st = (double)ctx.as_double( stretch );
 
 	// Process
 	in_st *= clamp(std::max(in_driver - in_dctr, 0.0) / std::max(in_dmax - in_dctr, 0.0001), 0.0, 1.0);
@@ -96,7 +96,7 @@ static Value eval_output(EvalContext& ctx)
 	double scl_z = std::max(scl.z, clamp_value);
 
 	// Output
-	return Imath::V3f(float(scl_x), float(scl_y), float(scl_z));
+	return Imath::V3d(float(scl_x), float(scl_y), float(scl_z));
 }
 
 /////////////////////////////////////////////////
@@ -110,7 +110,7 @@ void register_squashStretch2( Registry &r )
 		"mgear_squashStretch2",
 		"Node",
 		{
-			{ "global_scale", V3f(1.f) },
+			{ "global_scale", V3d(1.0) },
 			{ "blend", 1.f, PlugDescriptor::serial, "{\"min\":1.0}" },
 			{ "driver", 3.f },
 			{ "driver_min", 1.f },
@@ -119,7 +119,7 @@ void register_squashStretch2( Registry &r )
 			{ "axis", 0, PlugDescriptor::serial, "{\"enum\":{\"x\":0,\"y\":1,\"z\":2}}" },
 			{ "squash", 0.5f, PlugDescriptor::serial, "{\"min\":-1.0}" },
 			{ "stretch", -0.5f, PlugDescriptor::serial, "{\"min\":-1.0}" },
-			{ "output", V3f(0.f), 0, "",
+			{ "output", V3d(0.0), 0, "",
 				eval_output,
 				{
 					{ "global_scale" },
