@@ -110,7 +110,7 @@ void register_squashStretch2( Registry &r )
 		"mgear_squashStretch2",
 		"Node",
 		{
-			{ "global_scale", V3d(1.f) },
+			{ "global_scale", V3d(1.0) },
 			{ "blend", 1.f, PlugDescriptor::serial, "{\"min\":1.0}" },
 			{ "driver", 3.f },
 			{ "driver_min", 1.f },
@@ -119,7 +119,7 @@ void register_squashStretch2( Registry &r )
 			{ "axis", 0, PlugDescriptor::serial, "{\"enum\":{\"x\":0,\"y\":1,\"z\":2}}" },
 			{ "squash", 0.5f, PlugDescriptor::serial, "{\"min\":-1.0}" },
 			{ "stretch", -0.5f, PlugDescriptor::serial, "{\"min\":-1.0}" },
-			{ "output", V3d(0.f), 0, "",
+			{ "output", V3d(0.0), 0, "",
 				eval_output,
 				{
 					{ "global_scale" },

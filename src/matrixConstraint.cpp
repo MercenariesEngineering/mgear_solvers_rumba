@@ -207,11 +207,11 @@ void register_matrixConstraint( Registry &r )
 			// input plugs
 			// ---------------------------------------------------
 			{ "driverMatrix", Imath::identity44d },
-			{ "driverRotationOffset", Imath::V3d(0.f) },
+			{ "driverRotationOffset", Imath::V3d(0.0) },
 			{ "drivenParentInverseMatrix", Imath::identity44d },
 			{ "drivenRestMatrix", Imath::identity44d },
-			{ "rotationMultiplier", Imath::V3d(1.f) },
-			{ "scaleMultiplier", Imath::V3d(1.f) },
+			{ "rotationMultiplier", Imath::V3d(1.0) },
+			{ "scaleMultiplier", Imath::V3d(1.0) },
 
 			{ "intermediate", Array::default_value, 0, "",
 				eval_intermediate,
@@ -240,25 +240,25 @@ void register_matrixConstraint( Registry &r )
 					{ "intermediate" }
 				}
 			},
-			{ "translate", Imath::V3d(0.f), 0, "",
+			{ "translate", Imath::V3d(0.0), 0, "",
 				eval_translate,
 				{
 					{ "intermediate" }
 				}
 			},
-			{ "rotate", Imath::V3d(0.f), 0, "",
+			{ "rotate", Imath::V3d(0.0), 0, "",
 				eval_rotate,
 				{
 					{ "intermediate" }
 				}
 			},
-			{ "scale", Imath::V3d(1.f), 0, "",
+			{ "scale", Imath::V3d(1.0), 0, "",
 				eval_scale,
 				{
 					{ "intermediate" }
 				}
 			},
-			{ "shear", Imath::V3d(0.f), 0, "",
+			{ "shear", Imath::V3d(0.0), 0, "",
 				eval_shear,
 				{
 					{ "intermediate" }
