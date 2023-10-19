@@ -74,21 +74,21 @@ static Value eval_state(EvalContext& ctx)
 		previous_state = ctx.value(state_aPreviousState);
 
 	MVector _previousPosition, _currentPosition;
-	double _previousTime;
+	//double _previousTime;
 	if(!previous_state.size())
 	{
 		// Initialize the point states
 		//MGlobal::displayInfo( "mc_spring: Initialize the point states" );
 		_previousPosition = goal;
 		_currentPosition = goal;
-		_previousTime = currentTime;
+		//_previousTime = currentTime;
 		//return MS::kSuccess;
 	}
 	else
 	{
 		_previousPosition = previous_state.as_V3d(0);
 		_currentPosition = previous_state.as_V3d(1);
-		_previousTime = previous_state.as_double(2);
+		//_previousTime = previous_state.as_double(2);
 	}
 
 	/*// Check if the timestep is just 1 frame since we want a stable simulation
