@@ -31,7 +31,12 @@ Date:       2016 / 10 / 10
 /////////////////////////////////////////////////
 // INCLUDE
 /////////////////////////////////////////////////
-#include "mgear_solvers.h"
+#include "Maquina/Array.h"
+#include "Maquina/EvalContext.h"
+#include "Maquina/Node.h"
+#include "Maquina/Registry.h"
+#include "maya/MStatus.h"
+#include "maya/MVector.h"
 
 using namespace maquina;
 using namespace Imath;

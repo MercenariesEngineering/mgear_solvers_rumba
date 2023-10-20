@@ -1,5 +1,5 @@
 
-#include "Maquina/Maquina.h"
+#include "Maquina/Registry.h"
 
 using namespace maquina;
 

@@ -35,6 +35,9 @@ Ported to Rumba by Mercenaries Engineering SARL
 /////////////////////////////////////////////////
 #include "mgear_solvers.h"
 
+#include "Maquina/EvalContext.h"
+#include "Maquina/Registry.h"
+
 using namespace maquina;
 using namespace Imath;
 

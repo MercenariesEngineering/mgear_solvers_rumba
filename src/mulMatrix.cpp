@@ -33,7 +33,10 @@ Ported to Rumba by Mercenaries Engineering SARL
 /////////////////////////////////////////////////
 // INCLUDE
 /////////////////////////////////////////////////
-#include "mgear_solvers.h"
+#include <ImathMatrixAlgo.h>
+
+#include "Maquina/EvalContext.h"
+#include "Maquina/Registry.h"
 
 using namespace maquina;
 using namespace Imath;
