@@ -35,11 +35,6 @@ Ported to Rumba by Mercenaries Engineering SARL
 /////////////////////////////////////////////////
 // INCLUDE
 /////////////////////////////////////////////////
-
-#include <iostream>
-#include <algorithm>
-#include <cmath>
-
 #include <maya/MGlobal.h>
 #include <maya/MQuaternion.h>
 #include <maya/MVector.h>
