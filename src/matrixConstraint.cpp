@@ -157,7 +157,7 @@ static Value eval_intermediate(EvalContext& ctx)
 	result.getShear(shear_result, MSpace::kWorld);
 	results.push_back(Imath::V3d(shear_result[0], shear_result[1], shear_result[2]));	// 5
 
-	return std::move(results);
+	return results;
 }
 
 static Value eval_outputMatrix(EvalContext& ctx)

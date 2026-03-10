@@ -124,7 +124,7 @@ static Value eval_state(EvalContext& ctx)
 	else
 		interactive_state.set_value(Array::default_value);
 
-	return std::move(new_state);
+	return new_state;
 }
 
 static Value eval_output(EvalContext& ctx)

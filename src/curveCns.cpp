@@ -69,7 +69,7 @@ static Value eval_outputGeometry(EvalContext& ctx)
 		points[i] = m.translation();
 	}
 
-	return std::move(result);
+	return result;
 }
 
 /////////////////////////////////////////////////
